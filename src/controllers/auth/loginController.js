@@ -9,32 +9,45 @@ const loginController = async (req, res) => {
   try {
     const { email, senha } = req.body
 
+    // Tentar encontrar o usuário pelo email
     const user = await prisma.usuarios.findUnique({ where: { email } })
+    const company = await prisma.empresas.findUnique({ where: { email } })
 
-    if (!user) {
+    if (!user && !company) {
       return res.status(401).json({ error: 'Credenciais inválidas' })
     }
 
-    const isPasswordValid = await bcrypt.compare(senha, user.senha)
+    let isPasswordValid = false
+    let token = null
+    let sessionData = null
+
+    if (user) {
+      isPasswordValid = await bcrypt.compare(senha, user.senha)
+      if (isPasswordValid) {
+        token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' })
+        sessionData = { user_id: user.id, token }
+      }
+    }
+
+    if (company) {
+      isPasswordValid = await bcrypt.compare(senha, company.senha)
+      if (isPasswordValid) {
+        token = jwt.sign({ id: company.id, email: company.email }, SECRET_KEY, { expiresIn: '1h' })
+        sessionData = { user_id: company.id, token }
+      }
+    }
 
     if (!isPasswordValid) {
       return res.status(401).json({ error: 'Credenciais inválidas' })
     }
 
-    const token = jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' })
-
     // Criar sessão
     await prisma.session.create({
-      data: {
-        user_id: user.id,
-        token
-      }
+      data: sessionData
     })
 
     res.status(200).json({
-      usuario: {
-        ...user
-      },
+      usuario: user || company,
       token
     })
   } catch (error) {

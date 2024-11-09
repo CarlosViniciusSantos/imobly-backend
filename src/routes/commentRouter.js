@@ -8,11 +8,12 @@ import { auth } from '../middlewares/auth.js'
 
 const router = express.Router()
 
+// Rota pública para criar comentário
+router.post('/', createCommentController)
 router.get('/list', listCommentsController) // Rota pública para listar comentários
 
 // Rotas protegidas
 router.use(auth)
-router.post('/', createCommentController)
 router.get('/:id', getCommentByIdController)
 router.put('/:id', updateCommentController)
 router.delete('/:id', removeCommentController)

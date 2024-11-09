@@ -12,7 +12,7 @@ const removeCompanyController = async (req, res) => {
       return res.status(404).json({ error: 'Company not found' })
     }
 
-    res.status(204).send()
+    res.status(200).json({ message: `Empresa ${company.nome} excluída com sucesso` })
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' })
   }
