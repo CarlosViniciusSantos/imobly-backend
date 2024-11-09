@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model comentarios {
+  id           Int       @id @default(autoincrement())
+  id_imovel    Int?
+  id_usuario   Int?
+  comentario   String    @db.Text
+  data_criacao DateTime  @default(now()) @db.Timestamp(0)
+  imoveis      imoveis?  @relation(fields: [id_imovel], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "comentarios_ibfk_1")
+  usuarios     usuarios? @relation(fields: [id_usuario], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "comentarios_ibfk_2")
+
+  @@index([id_imovel], map: "id_imovel")
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model empresas {
+  id           Int       @id @default(autoincrement())
+  nome         String    @db.VarChar(100)
+  cnpj         String    @unique(map: "cnpj") @db.VarChar(14)
+  email        String    @unique(map: "email") @db.VarChar(100)
+  senha        String    @db.VarChar(255)
+  foto_perfil  String?   @db.VarChar(255)
+  data_criacao DateTime  @default(now()) @db.Timestamp(0)
+  imoveis      imoveis[]
+}
+
+model imoveis {
+  id           Int           @id @default(autoincrement())
+  id_empresa   Int?
+  cep          String        @db.VarChar(10)
+  cidade       String        @db.VarChar(100)
+  estado       String        @db.VarChar(2)
+  tipo         String?       @db.VarChar(50)
+  valor        Decimal?      @db.Decimal(10, 2)
+  descricao    String?       @db.Text
+  data_criacao DateTime      @default(now()) @db.Timestamp(0)
+  comentarios  comentarios[]
+  empresas     empresas?     @relation(fields: [id_empresa], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "imoveis_ibfk_1")
+
+  @@index([id_empresa], map: "id_empresa")
+}
+
+model usuarios {
+  id           Int           @id @default(autoincrement())
+  nome         String        @db.VarChar(100)
+  cpf          String        @unique(map: "cpf") @db.VarChar(11)
+  telefone     String?       @db.VarChar(15)
+  cidade       String?       @db.VarChar(100)
+  estado       String?       @db.VarChar(2)
+  foto_perfil  String?       @db.VarChar(255)
+  data_criacao DateTime      @default(now()) @db.Timestamp(0)
+  comentarios  comentarios[]
+}
