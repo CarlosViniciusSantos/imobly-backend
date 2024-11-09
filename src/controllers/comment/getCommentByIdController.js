@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 const getCommentByIdController = async (req, res) => {
   try {
-    const comment = await prisma.comment.findUnique({
+    const comment = await prisma.comentarios.findUnique({
       where: { id: parseInt(req.params.id) }
     })
 

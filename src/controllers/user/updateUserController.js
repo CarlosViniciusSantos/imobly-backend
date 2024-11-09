@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 const updateUserController = async (req, res) => {
   try {
-    const user = await prisma.user.update({
+    const user = await prisma.usuarios.update({
       where: { id: parseInt(req.params.id) },
       data: req.body
     })

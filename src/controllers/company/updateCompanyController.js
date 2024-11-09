@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 const updateCompanyController = async (req, res) => {
   try {
-    const company = await prisma.company.update({
+    const company = await prisma.empresas.update({
       where: { id: parseInt(req.params.id) },
       data: req.body
     })

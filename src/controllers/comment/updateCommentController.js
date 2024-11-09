@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 const updateCommentController = async (req, res) => {
   try {
-    const comment = await prisma.comment.update({
+    const comment = await prisma.comentarios.update({
       where: { id: parseInt(req.params.id) },
       data: req.body
     })

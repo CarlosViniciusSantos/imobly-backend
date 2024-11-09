@@ -1,7 +1,10 @@
 import jwt from 'jsonwebtoken'
 import { SECRET_KEY } from '../config.js'
+import { PrismaClient } from '@prisma/client'
 
-export const auth = (req, res, next) => {
+const prisma = new PrismaClient()
+
+export const auth = async (req, res, next) => {
   const authorization = req.headers.authorization
 
   if (!authorization) {
@@ -15,8 +18,14 @@ export const auth = (req, res, next) => {
   }
 
   try {
+    const session = await prisma.session.findUnique({ where: { token: accessToken } })
+
+    if (!session) {
+      return res.status(403).json({ error: "Token inválido!" })
+    }
+
     const result = jwt.verify(accessToken, SECRET_KEY)
-    req.userLogged = { public_id: result.public_id, name: result.name }
+    req.userLogged = { id: result.id, email: result.email }
     next()
   } catch (error) {
     if (error?.name === 'TokenExpiredError') {

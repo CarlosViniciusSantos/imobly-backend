@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 const updatePropertyController = async (req, res) => {
   try {
-    const property = await prisma.property.update({
+    const property = await prisma.imoveis.update({
       where: { id: parseInt(req.params.id) },
       data: req.body
     })

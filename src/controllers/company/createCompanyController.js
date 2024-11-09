@@ -6,7 +6,7 @@ const createCompanyController = async (req, res) => {
   try {
     const { name, address } = req.body
 
-    const company = await prisma.company.create({
+    const company = await prisma.empresas.create({
       data: {
         name,
         address

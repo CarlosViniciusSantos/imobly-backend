@@ -6,7 +6,7 @@ const createCommentController = async (req, res) => {
   try {
     const { text, userId, propertyId } = req.body
 
-    const comment = await prisma.comment.create({
+    const comment = await prisma.comentarios.create({
       data: {
         text,
         userId,

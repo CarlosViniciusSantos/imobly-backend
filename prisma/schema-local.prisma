@@ -56,5 +56,16 @@ model usuarios {
   estado       String?       @db.VarChar(2)
   foto_perfil  String?       @db.VarChar(255)
   data_criacao DateTime      @default(now()) @db.Timestamp(0)
+  email        String        @unique(map: "email") @db.VarChar(100)
+  senha        String        @db.VarChar(255)
   comentarios  comentarios[]
+}
+
+model session {
+  id        Int      @id @default(autoincrement())
+  user_id   Int
+  token     String   @unique
+  createdAt DateTime @default(now())
+
+  @@index([user_id], map: "user_id")
 }

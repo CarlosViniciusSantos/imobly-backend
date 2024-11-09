@@ -8,10 +8,13 @@ import { auth } from '../middlewares/auth.js'
 
 const router = express.Router()
 
-router.use(auth)
+// Rota pública para criar usuário
 router.post('/', createUserController)
-router.get('/list', listUsersController)
+router.get('/list', listUsersController) // Rota pública para listar usuários
 router.get('/:id', getUserByIdController)
+
+// Rotas protegidas
+router.use(auth)
 router.put('/:id', updateUserController)
 router.delete('/:id', removeUserController)
 

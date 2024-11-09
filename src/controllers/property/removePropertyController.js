@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 const removePropertyController = async (req, res) => {
   try {
-    const property = await prisma.property.delete({
+    const property = await prisma.imoveis.delete({
       where: { id: parseInt(req.params.id) }
     })
 

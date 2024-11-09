@@ -6,7 +6,7 @@ const createPropertyController = async (req, res) => {
   try {
     const { title, description, price, companyId } = req.body
 
-    const property = await prisma.property.create({
+    const property = await prisma.imoveis.create({
       data: {
         title,
         description,

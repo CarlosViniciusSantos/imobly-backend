@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 const removeUserController = async (req, res) => {
   try {
-    const user = await prisma.user.delete({
+    const user = await prisma.usuarios.delete({
       where: { id: parseInt(req.params.id) }
     })
 

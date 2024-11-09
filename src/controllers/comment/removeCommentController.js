@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 const removeCommentController = async (req, res) => {
   try {
-    const comment = await prisma.comment.delete({
+    const comment = await prisma.comentarios.delete({
       where: { id: parseInt(req.params.id) }
     })
 

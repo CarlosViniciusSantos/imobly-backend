@@ -3,7 +3,7 @@ import userRouter from './routes/userRouter.js'
 import companyRouter from './routes/companyRouter.js'
 import propertyRouter from './routes/propertyRouter.js'
 import commentRouter from './routes/commentRouter.js'
-import { auth } from './middlewares/auth.js'
+import authRouter from './routes/authRouter.js'
 import errorHandler from './middlewares/errorHandler.js'
 import logger from './middlewares/logger.js'
 
@@ -13,9 +13,7 @@ app.use(logger) // Middleware de logging
 
 // Rotas públicas
 app.get('/', (req, res) => res.json({ message: "Bem vindo a API" }))
-
-// Rotas protegidas
-app.use(auth) // Middleware de autenticação
+app.use('/auth', authRouter)
 app.use('/users', userRouter)
 app.use('/companies', companyRouter)
 app.use('/properties', propertyRouter)

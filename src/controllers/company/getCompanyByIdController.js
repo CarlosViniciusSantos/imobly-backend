@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 const getCompanyByIdController = async (req, res) => {
   try {
-    const company = await prisma.company.findUnique({
+    const company = await prisma.empresas.findUnique({
       where: { id: parseInt(req.params.id) }
     })
 

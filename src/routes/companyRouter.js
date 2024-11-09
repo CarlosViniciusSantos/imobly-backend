@@ -8,9 +8,11 @@ import { auth } from '../middlewares/auth.js'
 
 const router = express.Router()
 
+router.get('/list', listCompaniesController) // Rota pública para listar empresas
+
+// Rotas protegidas
 router.use(auth)
 router.post('/', createCompanyController)
-router.get('/list', listCompaniesController)
 router.get('/:id', getCompanyByIdController)
 router.put('/:id', updateCompanyController)
 router.delete('/:id', removeCompanyController)

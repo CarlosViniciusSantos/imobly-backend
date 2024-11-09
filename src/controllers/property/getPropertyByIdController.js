@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 const getPropertyByIdController = async (req, res) => {
   try {
-    const property = await prisma.property.findUnique({
+    const property = await prisma.imoveis.findUnique({
       where: { id: parseInt(req.params.id) }
     })
 

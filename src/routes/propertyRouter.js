@@ -8,9 +8,11 @@ import { auth } from '../middlewares/auth.js'
 
 const router = express.Router()
 
+router.get('/list', listPropertiesController) // Rota pública para listar propriedades
+
+// Rotas protegidas
 router.use(auth)
 router.post('/', createPropertyController)
-router.get('/list', listPropertiesController)
 router.get('/:id', getPropertyByIdController)
 router.put('/:id', updatePropertyController)
 router.delete('/:id', removePropertyController)

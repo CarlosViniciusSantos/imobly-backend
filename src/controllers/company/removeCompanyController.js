@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 
 const removeCompanyController = async (req, res) => {
   try {
-    const company = await prisma.company.delete({
+    const company = await prisma.empresas.delete({
       where: { id: parseInt(req.params.id) }
     })
 

@@ -18,7 +18,7 @@ export const getSessionByToken = async (token) => {
 
 export const updateToken = async (oldToken, newToken) => {
   return await prisma.session.update({
-    data: { token: newToken },
-    where: { token: oldToken }
+    where: { token: oldToken },
+    data: { token: newToken }
   })
 }
