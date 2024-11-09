@@ -1,19 +1,16 @@
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { createProperty, propertyValidateToCreate } from '../../models/propertyModel.js'
 
 const createPropertyController = async (req, res) => {
   try {
     const { title, description, price, companyId } = req.body
 
-    const property = await prisma.imoveis.create({
-      data: {
-        title,
-        description,
-        price,
-        companyId
-      }
-    })
+    // Validar os dados do imóvel
+    const validation = propertyValidateToCreate({ title, description, price, companyId })
+    if (!validation.success) {
+      return res.status(400).json({ error: validation.error.errors })
+    }
+
+    const property = await createProperty({ title, description, price, companyId })
 
     res.status(201).json(property)
   } catch (error) {

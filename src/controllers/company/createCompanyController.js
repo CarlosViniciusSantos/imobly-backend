@@ -1,17 +1,16 @@
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { createCompany, companyValidateToCreate } from '../../models/companyModel.js'
 
 const createCompanyController = async (req, res) => {
   try {
     const { name, address } = req.body
 
-    const company = await prisma.empresas.create({
-      data: {
-        name,
-        address
-      }
-    })
+    // Validar os dados da empresa
+    const validation = companyValidateToCreate({ name, address })
+    if (!validation.success) {
+      return res.status(400).json({ error: validation.error.errors })
+    }
+
+    const company = await createCompany({ name, address })
 
     res.status(201).json(company)
   } catch (error) {
