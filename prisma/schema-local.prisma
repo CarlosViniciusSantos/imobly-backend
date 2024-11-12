@@ -33,12 +33,12 @@ model empresas {
 
 model imoveis {
   id           Int           @id @default(autoincrement())
-  id_empresa   Int?
+  id_empresa   Int
   cep          String        @db.VarChar(10)
   cidade       String        @db.VarChar(100)
   estado       String        @db.VarChar(2)
-  tipo         String?       @db.VarChar(50)
-  valor        Decimal?      @db.Decimal(10, 2)
+  tipo         String       @db.VarChar(50)
+  valor        Decimal      @db.Decimal(10, 2)
   descricao    String?       @db.Text
   data_criacao DateTime      @default(now()) @db.Timestamp(0)
   comentarios  comentarios[]
