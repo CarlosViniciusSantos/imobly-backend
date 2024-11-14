@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import userRouter from './routes/userRouter.js'
 import companyRouter from './routes/companyRouter.js'
 import propertyRouter from './routes/propertyRouter.js'
@@ -10,6 +11,8 @@ import logger from './middlewares/logger.js'
 const app = express()
 app.use(express.json())
 app.use(logger) // Middleware de logging
+
+app.use(cors())
 
 // Rotas públicas
 app.get('/', (req, res) => res.json({ message: "Bem vindo a API" }))
