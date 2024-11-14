@@ -4,9 +4,9 @@ import { z } from 'zod'
 const prisma = new PrismaClient()
 
 const commentSchema = z.object({
-  text: z.string().min(1, "O texto do comentário não pode ser vazio"),
-  userId: z.number().positive("O ID do usuário deve ser um número positivo"),
-  propertyId: z.number().positive("O ID do imóvel deve ser um número positivo")
+  comentario: z.string().min(1, "O texto do comentário não pode ser vazio"),
+  id_usuario: z.number().positive("O ID do usuário deve ser um número positivo"),
+  id_imovel: z.number().positive("O ID do imóvel deve ser um número positivo")
 })
 
 export const commentValidateToCreate = (comment) => {

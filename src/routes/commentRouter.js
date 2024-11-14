@@ -11,10 +11,10 @@ const router = express.Router()
 // Rota pública para criar comentário
 router.post('/', createCommentController)
 router.get('/list', listCommentsController) // Rota pública para listar comentários
+router.get('/:id', getCommentByIdController)
 
 // Rotas protegidas
 router.use(auth)
-router.get('/:id', getCommentByIdController)
 router.put('/:id', updateCommentController)
 router.delete('/:id', removeCommentController)
 

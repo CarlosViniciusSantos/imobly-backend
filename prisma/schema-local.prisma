@@ -9,12 +9,12 @@ datasource db {
 
 model comentarios {
   id           Int       @id @default(autoincrement())
-  id_imovel    Int?
-  id_usuario   Int?
+  id_imovel    Int
+  id_usuario   Int
   comentario   String    @db.Text
   data_criacao DateTime  @default(now()) @db.Timestamp(0)
-  imoveis      imoveis?  @relation(fields: [id_imovel], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "comentarios_ibfk_1")
-  usuarios     usuarios? @relation(fields: [id_usuario], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "comentarios_ibfk_2")
+  imoveis      imoveis  @relation(fields: [id_imovel], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "comentarios_ibfk_1")
+  usuarios     usuarios @relation(fields: [id_usuario], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "comentarios_ibfk_2")
 
   @@index([id_imovel], map: "id_imovel")
   @@index([id_usuario], map: "id_usuario")

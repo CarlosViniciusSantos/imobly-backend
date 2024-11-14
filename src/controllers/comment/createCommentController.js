@@ -2,15 +2,15 @@ import { createComment, commentValidateToCreate } from '../../models/commentMode
 
 const createCommentController = async (req, res) => {
   try {
-    const { text, userId, propertyId } = req.body
+    const { comentario, id_usuario, id_imovel } = req.body
 
     // Validar os dados do comentário
-    const validation = commentValidateToCreate({ text, userId, propertyId })
+    const validation = commentValidateToCreate({ comentario, id_usuario, id_imovel })
     if (!validation.success) {
       return res.status(400).json({ error: validation.error.errors })
     }
 
-    const comment = await createComment({ text, userId, propertyId })
+    const comment = await createComment({ comentario, id_usuario, id_imovel })
 
     res.status(201).json(comment)
   } catch (error) {
