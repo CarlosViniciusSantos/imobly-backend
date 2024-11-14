@@ -11,10 +11,10 @@ const router = express.Router()
 // Rota pública para criar imóvel
 router.post('/', createPropertyController)
 router.get('/list', listPropertiesController) // Rota pública para listar propriedades
+router.get('/:id', getPropertyByIdController)
 
 // Rotas protegidas
 router.use(auth)
-router.get('/:id', getPropertyByIdController)
 router.put('/:id', updatePropertyController)
 router.delete('/:id', removePropertyController)
 
