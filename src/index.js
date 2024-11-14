@@ -5,6 +5,7 @@ import companyRouter from './routes/companyRouter.js'
 import propertyRouter from './routes/propertyRouter.js'
 import commentRouter from './routes/commentRouter.js'
 import authRouter from './routes/authRouter.js'
+import sessionRouter from './routes/sessionRouter.js' // Importar o roteador de sessões
 import errorHandler from './middlewares/errorHandler.js'
 import logger from './middlewares/logger.js'
 
@@ -21,6 +22,7 @@ app.use('/users', userRouter)
 app.use('/companies', companyRouter)
 app.use('/properties', propertyRouter)
 app.use('/comments', commentRouter)
+app.use('/sessions', sessionRouter) // Adicionar o roteador de sessões
 
 // Middleware de tratamento de erros
 app.use(errorHandler)
