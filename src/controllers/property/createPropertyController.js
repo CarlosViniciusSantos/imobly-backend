@@ -2,15 +2,15 @@ import { createProperty, propertyValidateToCreate } from '../../models/propertyM
 
 const createPropertyController = async (req, res) => {
   try {
-    const { cep, cidade, estado, tipo, descricao, valor, id_empresa } = req.body
+    const { cep, cidade, estado, tipo, descricao, valor, foto, id_empresa } = req.body
 
     // Validar os dados do imóvel
-    const validation = propertyValidateToCreate({ cep, cidade, estado, tipo, descricao, valor, id_empresa })
+    const validation = propertyValidateToCreate({ cep, cidade, estado, tipo, descricao, valor, foto, id_empresa })
     if (!validation.success) {
       return res.status(400).json({ error: validation.error.errors })
     }
 
-    const property = await createProperty({ cep, cidade, estado, tipo, descricao, valor, id_empresa })
+    const property = await createProperty({ cep, cidade, estado, tipo, descricao, valor, foto, id_empresa })
 
     res.status(201).json(property)
   } catch (error) {

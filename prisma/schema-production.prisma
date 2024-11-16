@@ -37,9 +37,10 @@ model imoveis {
   cep          String        @db.VarChar(10)
   cidade       String        @db.VarChar(100)
   estado       String        @db.VarChar(2)
-  tipo         String       @db.VarChar(50)
+  tipo         String        @db.VarChar(50)
   valor        Int
   descricao    String?       @db.Text
+  foto         String?       @db.VarChar(255) 
   data_criacao DateTime      @default(now()) @db.Timestamp(0)
   comentarios  comentarios[]
   empresas     empresas?     @relation(fields: [id_empresa], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "imoveis_ibfk_1")
