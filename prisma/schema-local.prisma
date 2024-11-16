@@ -38,7 +38,7 @@ model imoveis {
   cidade       String        @db.VarChar(100)
   estado       String        @db.VarChar(2)
   tipo         String       @db.VarChar(50)
-  valor        Decimal      @db.Decimal(10, 2)
+  valor        Int
   descricao    String?       @db.Text
   data_criacao DateTime      @default(now()) @db.Timestamp(0)
   comentarios  comentarios[]
