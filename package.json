@@ -8,7 +8,7 @@
     "start": "node src/index.js",
     "dev": "node --env-file=.env --watch src/index.js",
     "prisma:pull": "npx prisma db pull --schema=./prisma/schema-production.prisma",
-    "prisma:push:lost": "npx prisma db push --schema=./prisma/schema-production.prisma --accept-data-loss",
+    "prisma:push:lost": "npx prisma db push --schema=./prisma/schema-production.prisma --force-reset",
     "prisma:push": "npx prisma db push --schema=./prisma/schema-production.prisma",
     "prisma:generate": "npx prisma generate --schema=./prisma/schema-production.prisma",
     "prisma:local:pull": "npx prisma db pull --schema=./prisma/schema-local.prisma",
