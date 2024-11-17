@@ -4,6 +4,7 @@ import { z } from 'zod'
 const prisma = new PrismaClient()
 
 const propertySchema = z.object({
+  nome: z.string().min(3, "O nome deve ter ao menos 3 caracteres").max(100, "O nome deve ter no máximo 100 caracteres"),
   cep: z.string().min(8, "O CEP deve ter ao menos 8 caracteres").max(10, "O CEP deve ter no máximo 10 caracteres"),
   cidade: z.string().min(3, "A cidade deve ter ao menos 3 caracteres").max(100, "A cidade deve ter no máximo 100 caracteres"),
   estado: z.string().length(2, "O estado deve ter 2 caracteres"),
