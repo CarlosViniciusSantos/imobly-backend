@@ -7,15 +7,15 @@ const createUserController = async (req, res) => {
     const newUser = req.body
 
     const validation = userValidateToCreate(newUser)
-    validation.data.public_id = uuid()
-
+    
     if (validation?.error) {
       return res.status(401).json({
         error: "Erro ao criar usuário!",
         fieldErrors: validation.error.flatten().fieldErrors
-    })
+      })
     }
-
+    
+    validation.data.public_id = uuid()
     validation.data.senha = bcrypt.hashSync(validation.data.senha, 10)
 
     const user = await createUser(validation.data)
