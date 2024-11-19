@@ -1,32 +1,25 @@
-import { PrismaClient } from '@prisma/client'
+import {v4 as uuid} from 'uuid'
 import bcrypt from 'bcrypt'
 import { userValidateToCreate, createUser } from '../../models/userModel.js'
 
-const prisma = new PrismaClient()
-
 const createUserController = async (req, res) => {
   try {
-    const { nome, cpf, telefone, cidade, estado, foto_perfil, email, senha } = req.body
+    const newUser = req.body
 
-    // Validar os dados do usuário
-    const validation = userValidateToCreate({ nome, cpf, telefone, cidade, estado, foto_perfil, email, senha })
+    const validation = userValidateToCreate(newUser)
+
     if (!validation.success) {
       return res.status(400).json({ error: validation.error.errors })
     }
 
-    // Criptografar a senha antes de salvar no banco de dados
-    const hashedPassword = await bcrypt.hash(senha, 10)
+    validation.data.public_id = uuid()
+    validation.data.senha = bcrypt.hashSync(validation.data.senha, 10)
 
-    const user = await createUser({
-      nome,
-      cpf,
-      telefone,
-      cidade,
-      estado,
-      foto_perfil,
-      email,
-      senha: hashedPassword
-    })
+    const user = await createUser(validation.data)
+
+    if (!user) {
+      return res.status(401).json({ error: "Erro ao criar usuário" })
+    }
 
     res.status(201).json(user)
   } catch (error) {

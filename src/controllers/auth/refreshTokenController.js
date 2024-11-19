@@ -40,7 +40,7 @@ const refreshToken = async (req, res, next) => {
       success: "Token atualizado com sucesso!",
       accessToken: newToken,
       user: {
-        id: userLogged.id,
+        public_id: userLogged.public_id,
         name: userLogged.nome,
         email: userLogged.email
       }

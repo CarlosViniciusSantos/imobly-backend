@@ -8,11 +8,11 @@ datasource db {
 }
 
 model comentarios {
-  id           Int       @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   id_imovel    Int
   id_usuario   Int
-  comentario   String    @db.Text
-  data_criacao DateTime  @default(now()) @db.Timestamp(0)
+  comentario   String   @db.Text
+  data_criacao DateTime @default(now()) @db.Timestamp(0)
   imoveis      imoveis  @relation(fields: [id_imovel], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "comentarios_ibfk_1")
   usuarios     usuarios @relation(fields: [id_usuario], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "comentarios_ibfk_2")
 
@@ -34,14 +34,14 @@ model empresas {
 model imoveis {
   id           Int           @id @default(autoincrement())
   id_empresa   Int
-  nome         String       @db.VarChar(100)
+  nome         String        @db.VarChar(100)
   cep          String        @db.VarChar(10)
   cidade       String        @db.VarChar(100)
   estado       String        @db.VarChar(2)
   tipo         String        @db.VarChar(50)
   valor        Int
   descricao    String?       @db.Text
-  foto_imovel         String?       @db.VarChar(255) 
+  foto_imovel  String?       @db.VarChar(255)
   data_criacao DateTime      @default(now()) @db.Timestamp(0)
   comentarios  comentarios[]
   empresas     empresas?     @relation(fields: [id_empresa], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "imoveis_ibfk_1")
@@ -51,6 +51,7 @@ model imoveis {
 
 model usuarios {
   id           Int           @id @default(autoincrement())
+  public_id    String        @db.VarChar(256)
   nome         String        @db.VarChar(100)
   cpf          String        @unique(map: "cpf") @db.VarChar(11)
   telefone     String?       @db.VarChar(15)

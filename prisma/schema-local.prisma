@@ -34,7 +34,7 @@ model empresas {
 model imoveis {
   id           Int           @id @default(autoincrement())
   id_empresa   Int
-  nome         String       @db.VarChar(100)
+  nome         String        @db.VarChar(100)
   cep          String        @db.VarChar(10)
   cidade       String        @db.VarChar(100)
   estado       String        @db.VarChar(2)
@@ -51,6 +51,7 @@ model imoveis {
 
 model usuarios {
   id           Int           @id @default(autoincrement())
+  public_id    String        @db.VarChar(256)
   nome         String        @db.VarChar(100)
   cpf          String        @unique(map: "cpf") @db.VarChar(11)
   telefone     String?       @db.VarChar(15)
