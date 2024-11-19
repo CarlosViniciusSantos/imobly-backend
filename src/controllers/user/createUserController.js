@@ -1,11 +1,12 @@
-import {v4 as uuid} from 'uuid'
+import  {v4 as uuid} from 'uuid'
 import bcrypt from 'bcrypt'
 import { userValidateToCreate, createUser } from '../../models/userModel.js'
 
 const createUserController = async (req, res) => {
   try {
     const newUser = req.body
-
+    newUser.public_id = uuid()
+    
     const validation = userValidateToCreate(newUser)
     
     if (validation?.error) {
@@ -15,7 +16,7 @@ const createUserController = async (req, res) => {
       })
     }
     
-    validation.data.public_id = uuid()
+    // validation.data.public_id = uuid()
     validation.data.senha = bcrypt.hashSync(validation.data.senha, 10)
 
     const user = await createUser(validation.data)
