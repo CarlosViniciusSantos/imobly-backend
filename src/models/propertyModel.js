@@ -11,7 +11,7 @@ const propertySchema = z.object({
   tipo: z.string().min(3, "O tipo deve ter ao menos 3 caracteres").max(50, "O tipo deve ter no máximo 50 caracteres"),
   valor: z.number().positive("O valor deve ser um número positivo"),
   descricao: z.string().optional(),
-  foto_imovel: z.string().url("URL inválida").optional(), // Adicionando a validação para o campo de foto
+  foto: z.string().url("URL inválida").optional(), // Adicionando a validação para o campo de foto
   id_empresa: z.number().positive("O ID da empresa deve ser um número positivo")
 })
 
